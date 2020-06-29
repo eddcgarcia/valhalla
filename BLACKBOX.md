@@ -40,7 +40,7 @@ Alternatively,
 2. `blackbox_edit_end <file>`
    - Encrypt a file after `blackbox_edit_start` was used
 
-### Re-encrypt files
+### Update file encryption with current keys
 1. `blackbox_update_all_files`
    - Decrypt then re-encrypt all files. Useful after keys are changed
 
