@@ -1,0 +1,39 @@
+# -------------------- Automatically generate and import an RSA key-pair --------------------
+# Copied from https://github.com/aioue/ansible-role-aptly/blob/master/tasks/main.yml
+
+- name: start rngd for entropy creation
+  become: true
+  command: rngd -b -r /dev/urandom
+  args:
+    creates: "{{ gpg_key_dir }}/key.pub" # 'create key' step generates this key. If it exists, no reason to run this step
+
+- name: create gpg_key_dir
+  file:
+    path: "{{ gpg_key_dir }}"
+    state: directory
+
+- name: copy gpg key-gen batch file
+  template:
+    src: gpg2_gen_key.j2
+    dest: "{{ gpg_key_dir }}/gpg2_gen_key"
+    mode: '0644'
+
+- name: create key
+  command: "gpg2 --batch --gen-key {{ gpg_key_dir }}/gpg2_gen_key"
+  args:
+    creates: "{{ gpg_key_dir }}/key.pub"
+
+- name: stop random source
+  service:
+    name: rng-tools
+    state: stopped
+  become: true
+
+- name: import pub key to gnupg
+  command: gpg2 --import {{ gpg_key_dir }}/key.pub
+
+# Trust generated keys
+- name: trust keys
+  script: trust_gpg_keys.sh
+
+# ---------- end key creation tasks ----------

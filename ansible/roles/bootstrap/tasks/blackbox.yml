@@ -1,0 +1,36 @@
+- name: Retrieve blackbox encryption repo
+  git:
+    repo: 'https://github.com/StackExchange/blackbox.git'
+    dest: "{{ blackbox_dir }}"
+    clone: yes
+    #update: yes
+
+- name: Install fpm (blackbox dependency)
+  gem:
+    name: fpm
+    include_doc: no
+    install_dir: /tmp/fpm
+    state: latest
+    user_install: no
+  become: true
+
+- name: Place fpm in /usr/bin
+  copy:
+    src: /tmp/fpm/bin/fpm
+    dest: /usr/bin/fpm
+    owner: customer
+    group: customer
+    mode: '0742'
+  become: true
+
+- name: Create blackbox DEB
+  shell: "cd {{ blackbox_dir }} && make packages-deb OUTPUTDIR={{ blackbox_dir }}/deb-blackbox"
+  args:
+    creates: "{{ blackbox_dir }}/deb-blackbox/stack-blackbox*.deb"
+
+- name: Install blackbox DEB
+  apt:
+    deb: "{{ item }}"
+  become: true
+  with_fileglob:
+    - "{{ blackbox_dir }}/deb-blackbox/stack-blackbox*.deb"

@@ -1,0 +1,10 @@
+- name: Install basic packages
+  apt:
+    name:
+      - lib32gcc1
+      - p7zip-full
+      - steamcmd
+      - unzip
+    state: present
+    update_cache: true
+  become: true

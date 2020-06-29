@@ -1,0 +1,3 @@
+---
+home_dir: "{{ lookup('env', 'HOME') }}"
+ark_dir: "/home/customer/ark"

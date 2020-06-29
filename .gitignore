@@ -1,0 +1,28 @@
+# vscode files
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Local History for Visual Studio Code
+.history/
+
+# Ansible files
+*.retry
+
+# Blackbox files
+*.swp
+.blackbox/pubring.gpg~
+.blackbox/pubring.kbx~
+.blackbox/secring.gpg
+/blackbox/pubring.gpg~
+/blackbox/pubring.kbx~
+/blackbox/secring.gpg/ansible/secrets/nocix_server_1
+
+# Ignore all files in secrets folders
+# We don't want to accidentally commit an unencrypted secrets file
+*/secrets/*
+# But include the encrypted files
+!*/secrets/*.gpg

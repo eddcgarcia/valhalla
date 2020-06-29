@@ -1,0 +1,16 @@
+- name: Install basic packages
+  apt:
+    name:
+      - build-essential
+      - curl
+      - git
+      - gnupg2
+      - gpg
+      - rng-tools
+      - ruby
+      - ruby-dev
+      - rubygems
+      - vim
+    state: present
+    update_cache: true
+  become: true

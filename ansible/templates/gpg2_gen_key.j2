@@ -1,0 +1,16 @@
+%echo Generating a default key
+Key-Type: rsa
+Key-Length: 4096
+Subkey-Type: rsa
+Subkey-Length: 4096
+Name-Real: eddcgarcia@gmail.com
+Name-Comment: GPG key w/o passphrase
+Name-Email: eddcgarcia@gmail.com
+Expire-Date: 0
+%no-ask-passphrase
+%no-protection
+%pubring {{ gpg_key_dir }}/key.pub
+%secring {{ gpg_key_dir }}/key.sec
+# Do a commit here, so that we can later print "done"
+%commit
+%echo done

@@ -1,0 +1,10 @@
+---
+- name: Install basic packages
+  import_tasks: "{{ playbook_dir }}/roles/bootstrap/tasks/packages/debian.yml"
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Generate GPG key
+  import_tasks: gpg_key.yml
+
+- name: Install StackExchange blackbox for VCS secrets management
+  import_tasks: blackbox.yml

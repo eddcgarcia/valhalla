@@ -1,0 +1,8 @@
+- name: Grant 'steam' user ownership of ark folder
+  file:
+    path: "{{ ark_dir }}"
+    state: directory
+    recurse: yes
+    owner: steam
+    group: steam
+  become: true

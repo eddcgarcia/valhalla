@@ -1,0 +1,6 @@
+- name: Configure nocix sxerver with basic packages
+  hosts: nocix
+  remote_user: customer
+  roles:
+    - bootstrap
+    - steam

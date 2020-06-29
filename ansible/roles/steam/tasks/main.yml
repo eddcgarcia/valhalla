@@ -1,0 +1,16 @@
+---
+- name: Install basic packages
+  import_tasks: debian.yml
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Add 'steam' user
+  user:
+    name: steam
+    comment: "Service user for running Steam and game servers"
+    state: present
+  become: true
+
+- name: Include game-specific tasks
+  include: "{{ item }}"
+  with_fileglob:
+    - "{{ playbook_dir }}/roles/steam/tasks/games/*.yml"
