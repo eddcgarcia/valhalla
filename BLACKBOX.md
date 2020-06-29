@@ -1,7 +1,7 @@
 
 BlackBox Flow
 ======
-## Initial Blackbox Setup
+### Initial Blackbox Setup
 1. `cd` into the Git repository
 2. run `blackbox_initialize`
 3. Follow steps from the output in step 2
