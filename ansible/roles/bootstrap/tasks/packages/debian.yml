@@ -1,11 +1,19 @@
 - name: Install basic packages
   apt:
     name:
+      - asciidoc
+      - autoconf
+      - automake
       - build-essential
       - curl
+      - fig2dev
+      - g++
+      - gcc
       - git
       - gnupg2
       - gpg
+      - libtool
+      - make
       - rng-tools
       - ruby
       - ruby-dev
