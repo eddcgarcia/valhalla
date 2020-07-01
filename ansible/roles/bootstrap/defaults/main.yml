@@ -1,3 +1,5 @@
 ---
 gpg_key_dir: "{{ lookup('env', 'HOME') }}/.gpg"
 blackbox_dir: "/tmp/blackbox"
+debian_nodesource_repo_version: "node_12.x"
+linux_distro: "bionic"
