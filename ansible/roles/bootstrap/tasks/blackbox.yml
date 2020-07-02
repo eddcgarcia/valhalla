@@ -18,8 +18,8 @@
   copy:
     src: /tmp/fpm/bin/fpm
     dest: /usr/bin/fpm
-    owner: customer
-    group: customer
+    owner: "{{ remote_default_user }}"
+    group: "{{ remote_default_user }}"
     mode: '0742'
   become: true
 
