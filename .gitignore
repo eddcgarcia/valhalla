@@ -12,6 +12,10 @@
 # Ansible files
 *.retry
 
+# Python files
+*/__pycache__
+*.pyc
+
 # Blackbox files
 *.swp
 .blackbox/pubring.gpg~
