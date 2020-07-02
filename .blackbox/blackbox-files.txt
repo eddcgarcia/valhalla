@@ -1,1 +1,1 @@
-ansible/secrets/nocix_server_1
+ansible/secrets/secret_vars.yml

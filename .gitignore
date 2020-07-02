@@ -12,6 +12,10 @@
 # Ansible files
 *.retry
 
+# Python files
+*/__pycache__
+*.pyc
+
 # Blackbox files
 *.swp
 .blackbox/pubring.gpg~
@@ -24,5 +28,9 @@
 # Ignore all files in secrets folders
 # We don't want to accidentally commit an unencrypted secrets file
 */secrets/*
+*/secret/*
+ansible/secrets/secret_vars.yml
+
 # But include the encrypted files
 !*/secrets/*.gpg
+!*/secret/*.gpg

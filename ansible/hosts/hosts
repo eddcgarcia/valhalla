@@ -2,6 +2,7 @@ all:
   children:
     nocix:
       hosts:
-        nocix_server_1 ansible_host=""
+        nocix_server_1 ansible_host="" ansible_ssh_user="{{ remote_default_user }}"
       vars:
-        ansible_host: "{{ lookup('file', 'secrets/nocix_server_1') }}" # Path is relative from where playbook is run
+        ansible_host: "{{ nocix_server_1_ip }}" # nocix_server_1_ip is defined in the encrypted secret_vars.yml file
+        remote_default_user: "customer"
