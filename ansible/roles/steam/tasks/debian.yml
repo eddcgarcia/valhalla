@@ -19,6 +19,7 @@
   apt:
     name:
       - lib32gcc1
+      - lib32stdc++6
       - p7zip-full
       - steamcmd
       - unzip
