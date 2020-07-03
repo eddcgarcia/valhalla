@@ -20,13 +20,14 @@
     dest: /usr/bin/fpm
     owner: "{{ remote_default_user }}"
     group: "{{ remote_default_user }}"
-    mode: '0742'
+    mode: '0755'
   become: true
 
 - name: Create blackbox DEB
   shell: "cd {{ blackbox_dir }} && make packages-deb OUTPUTDIR={{ blackbox_dir }}/deb-blackbox"
   args:
     creates: "{{ blackbox_dir }}/deb-blackbox/stack-blackbox*.deb"
+  become: true
 
 - name: Install blackbox DEB
   apt:
