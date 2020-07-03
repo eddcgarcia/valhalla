@@ -33,4 +33,4 @@ ansible/secrets/secret_vars.yml
 
 # But include the encrypted files
 !*/secrets/*.gpg
-!*/secret/*.gpg
+!*/secret/*.gpg/ansible/secrets/secret_vars.yml
