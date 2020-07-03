@@ -1,7 +1,25 @@
+# Multiverse installation from https://www.stefanwienert.de/blog/2014/08/29/ansible-enable-ubuntu-multiverse-and-install-mscorefonts/
+- name: Add multiverse repo for steamcmd
+  apt_repository:
+    repo: "{{ item }}"
+  when: ansible_distribution == 'Ubuntu'
+  with_items:
+    - 'deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} multiverse'
+    - 'deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} multiverse'
+    - 'deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates multiverse'
+    - 'deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates multiverse'
+  become: true
+
+- name: Add DEB architecture
+  command: dpkg --add-architecture i386
+  register: deb_architecture
+  when: ansible_architecture == "x86_64"
+
 - name: Install basic packages
   apt:
     name:
       - lib32gcc1
+      - lib32stdc++6
       - p7zip-full
       - steamcmd
       - unzip
