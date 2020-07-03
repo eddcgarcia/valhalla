@@ -10,8 +10,8 @@ BlackBox Flow
 ## After Blackbox Setup
 ### Initial one-time setup:
 1. `gpg --gen-key`
-2. `blackbox_addadmin EMAIL-USED-FOR-GPG-KEY`
-   1. Example: `blackbox_addadmin user@example.com`
+2. `blackbox_addadmin FINGERPRINT-OF-GPG-KEY`
+   1. Example: `blackbox_addadmin 65B0E71268EEB8352033BC32D447A3013BB6665F`
 3. Follow steps from the output in step 2
 
 ### Edit admins
@@ -57,3 +57,13 @@ Alternatively,
 ### Delete all decrypted files
 `blackbox_shred_all_files`
   - Safely delete any decrypted files
+
+## New Admin Flow
+### Add admin keys
+1. Run `gpg --list-keys` and `gpg --list-secret-keys`
+2. Copy the correct fingerprint ID of your gpg key  
+   This ID should be the same in the `--list-keys` and `--list-secret-keys` output
+3. Run `blackbox_addadmin FINGERPRINT-OF-GPG-KEY`
+4. Commit and push the `.blackbox/pubring.kbx` and `.blackbox/blackbox-admins.txt` files
+5. A current admin must pull these changes, run `blackbox_update_all_files`, and commit/push the newly encrypted files
+6. Test that the new admin and a current admin can successfully run `blackbox_decrypt_all_files`
