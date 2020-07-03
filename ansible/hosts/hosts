@@ -6,3 +6,9 @@ all:
       vars:
         ansible_host: "{{ nocix_server_1_ip }}" # nocix_server_1_ip is defined in the encrypted secret_vars.yml file
         remote_default_user: "customer"
+    contabo:
+      hosts:
+        contabo_server_1 ansible_host="" ansible_ssh_user="{{ remote_default_user }}"
+      vars:
+        ansible_host: "{{ contabo_server_1_ip }}" # contabo_server_1_ip is defined in the encrypted secret_vars.yml file
+        remote_default_user: "ed"

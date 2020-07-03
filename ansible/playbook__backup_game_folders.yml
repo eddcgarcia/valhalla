@@ -1,0 +1,20 @@
+# Backs up ark saves to /var/cache/rsnapshot/saved-arks/
+# The prefix '/var/cache/rsnapshot' comes from the value of 'snapshot_root' in '/etc/rsnapshot.conf'
+- name: Backup ark saves
+  hosts: "{{ host }}"
+  remote_user: "{{ remote_default_user }}" # Defined in hosts vars
+  roles:
+    - backup
+  vars_files:
+    - secrets/secret_vars.yml
+  vars:
+    rsnapshot_config_include:
+      - "/home/customer/ark/ShooterGame/Saved/SavedArks/CrystalIsles.ark"
+      - "/home/customer/ark/ShooterGame/Saved/SavedArks/*.arkprofile"
+      - "/home/customer/ark/ShooterGame/Saved/SavedArks/*.arktribe"
+    rsnapshot_config_exclude:
+      - "/home/customer/ark/ShooterGame/Saved/SavedArks/*"
+    rsnapshot_config_backup:
+      - name: ark rsnapshot backup
+        backup_folders:
+          - [ backup, /home/customer/ark/ShooterGame/Saved/SavedArks/, saved-arks/ ]

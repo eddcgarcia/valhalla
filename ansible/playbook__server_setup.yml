@@ -1,0 +1,9 @@
+- name: Configure servers
+  hosts: "{{ host }}"
+  remote_user: "{{ remote_default_user }}" # Defined in hosts vars
+  roles:
+    - bootstrap
+    - steam
+  vars_files:
+    - secrets/secret_vars.yml
+  vars:

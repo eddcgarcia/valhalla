@@ -1,0 +1,28 @@
+---
+- name: Configure rsnapshot
+  template:
+    src: rsnapshot.conf.j2
+    dest: "{{ rsnapshot_config_file }}"
+    owner: "{{ rsnapshot_user }}"
+    group: root
+    mode: "0644"
+    backup: yes
+  tags:
+    - rsnapshot_config_file
+  become: true
+
+- name: Configure backup cron job
+  cron:
+    name: "{{ item.name }}"
+    user: "{{ rsnapshot_user }}"
+    month: "{{ item.get('month', '*') }}"
+    weekday: "{{ item.get('weekday', '*') }}"
+    day: "{{ item.get('day', '*') }}"
+    hour: "{{ item.get('hour', '*') }}"
+    minute: "{{ item.get('minute', '*') }}"
+    job: "{{ item.get('job', '*') }}"
+    state: "{{ item.get('state', 'present') }}"
+    disabled: "{{ item.get('disabled', no) }}"
+  with_items: "{{ rsnapshot_crontab }}"
+  become: true
+
