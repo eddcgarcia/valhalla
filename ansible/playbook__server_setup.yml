@@ -1,3 +1,6 @@
+
+# Playbook invocation example: ansible-playbook playbook__server_setup.yml -v --extra-vars "host=nocix"
+
 - name: Configure servers
   hosts: "{{ host }}"
   remote_user: "{{ remote_default_user }}" # Defined in hosts vars

@@ -1,5 +1,8 @@
 # Backs up ark saves to /var/cache/rsnapshot/saved-arks/
 # The prefix '/var/cache/rsnapshot' comes from the value of 'snapshot_root' in '/etc/rsnapshot.conf'
+
+# Playbook invocation example: ansible-playbook playbook__backup_game_folders.yml -v --extra-vars "host=nocix"
+
 - name: Backup ark saves
   hosts: "{{ host }}"
   remote_user: "{{ remote_default_user }}" # Defined in hosts vars
