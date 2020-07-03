@@ -1,0 +1,28 @@
+---
+# cron job options for rsnapshot backups
+
+# rsnapshot settings
+rsnapshot_user: root
+rsnapshot_config_file: /etc/rsnapshot.conf
+
+rsnapshot_config_include: []
+rsnapshot_config_exclude:
+  - .DS_Store
+
+# crontab configuration for rsnapshot job
+rsnapshot_crontab:
+  - name: quarter_hour
+    hour: "*"
+    minute: "*/15"
+    job: "/usr/bin/rsnapshot -c /etc/rsnapshot.conf quarter_hour"
+    state: "present"
+    disabled: no
+    retain: 672 # Maximum number of snapshots to retain
+
+# -------------------- CONFIGURE rsnapshot_config_backup in playbook vars --------------------
+# src and dest of folders to backup in form of [backup, SRC-FOLDER, DEST-FOLDER]
+rsnapshot_config_backup: []
+#  - name: rsnapshot backup
+#    backup_folders:
+#      - [backup, /home/, localhost/]
+# -------------------- END CONFIGURE - END CONFIGURE - END CONFIGURE --------------------
