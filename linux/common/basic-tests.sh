@@ -49,3 +49,5 @@ echo "Memory I/O (oflad=dsync):    $io4" >> $outputfilename
 echo ""
 cat $outputfilename
 echo ""
+
+rm "/tmp/linux-benchmark-*"
