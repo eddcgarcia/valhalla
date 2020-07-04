@@ -17,7 +17,14 @@ rsnapshot_crontab:
     job: "/usr/bin/rsnapshot -c /etc/rsnapshot.conf quarter_hour"
     state: "present"
     disabled: no
-    retain: 672 # Maximum number of snapshots to retain
+    retain: 192 # Maximum number of snapshots to retain
+  - name: daily
+    hour: "2"
+    minute: "*"
+    job: "/usr/bin/rsnapshot -c /etc/rsnapshot.conf daily"
+    state: "present"
+    disabled: no
+    retain: 14 # Maximum number of snapshots to retain
 
 # -------------------- CONFIGURE rsnapshot_config_backup in playbook vars --------------------
 # src and dest of folders to backup in form of [backup, SRC-FOLDER, DEST-FOLDER]
