@@ -16,7 +16,7 @@
   when: ansible_architecture == "x86_64"
   become: true
 
-- name: Install basic packages
+- name: Install basic packages [INSTALL steamcmd MANUALLY; steamcmd WILL FAIL]
   apt:
     name:
       - lib32gcc1

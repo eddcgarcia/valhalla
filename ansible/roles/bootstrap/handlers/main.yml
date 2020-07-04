@@ -1,0 +1,11 @@
+- name: cleanup fpm
+  file:
+    path: "/usr/local/bin/fpm-*"
+    state: absent
+  become: true
+
+- name: cleanup blackbox
+  file:
+    path: "{{ blackbox_dir }}"
+    state: absent
+  become: true

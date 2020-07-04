@@ -1,37 +1,67 @@
+- name: Check if blackbox is already installed
+  stat: 
+    path: /usr/bin/blackbox_addadmin
+  register: blackbox_installed
+
 - name: Retrieve blackbox encryption repo
   git:
     repo: 'https://github.com/StackExchange/blackbox.git'
     dest: "{{ blackbox_dir }}"
     clone: yes
     #update: yes
+  when: blackbox_installed.stat.exists == false
 
 - name: Install fpm (blackbox dependency)
   gem:
     name: fpm
     include_doc: no
-    install_dir: /tmp/fpm
     state: latest
-    user_install: no
   become: true
+  when: blackbox_installed.stat.exists == false
 
-- name: Place fpm in /usr/bin
-  copy:
-    src: /tmp/fpm/bin/fpm
-    dest: /usr/bin/fpm
-    owner: "{{ remote_default_user }}"
-    group: "{{ remote_default_user }}"
-    mode: '0755'
+- name: Unpack fpm in /usr/local/bin
+  shell: |
+    cd /usr/local/bin
+    gem unpack fpm
+  args:
+    creates: "/usr/local/bin/fpm"
   become: true
+  notify:
+    - cleanup fpm
+  when: blackbox_installed.stat.exists == false
+
+- name: Get fpm directory
+  shell: "ls /usr/local/bin | grep fpm-"
+  register: fpm_dir
+  when: blackbox_installed.stat.exists == false
+
+- name: Copy fpm executable to /usr/local/bin
+  copy:
+    src: "/usr/local/bin/{{ fpm_dir.stdout }}/bin/fpm"
+    dest: "/usr/local/bin/fpm"
+    mode: '0755'
+    remote_src: yes
+  become: true
+  when: blackbox_installed.stat.exists == false
 
 - name: Create blackbox DEB
   shell: "cd {{ blackbox_dir }} && make packages-deb OUTPUTDIR={{ blackbox_dir }}/deb-blackbox"
   args:
-    creates: "{{ blackbox_dir }}/deb-blackbox/stack-blackbox*.deb"
+    creates: "/usr/bin/blackbox_*"
   become: true
+  when: blackbox_installed.stat.exists == false
+
+- name: Get blackbox DEB path
+  shell: "ls {{ blackbox_dir }}/deb-blackbox | grep stack-blackbox.*\\.deb"
+  register: blackbox_file
+  args:
+    creates: "/usr/bin/blackbox_*"
+  when: blackbox_installed.stat.exists == false
+  notify:
+    - cleanup blackbox
 
 - name: Install blackbox DEB
   apt:
-    deb: "{{ item }}"
+    deb: "{{ blackbox_dir }}/deb-blackbox/{{ blackbox_file.stdout }}"
   become: true
-  with_fileglob:
-    - "{{ blackbox_dir }}/deb-blackbox/stack-blackbox*.deb"
+  when: blackbox_installed.stat.exists == false
