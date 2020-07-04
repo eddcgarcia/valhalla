@@ -50,4 +50,4 @@ echo ""
 cat $outputfilename
 echo ""
 
-rm "/tmp/linux-benchmark-*"
+rm -rf /tmp/linux-benchmark-*
