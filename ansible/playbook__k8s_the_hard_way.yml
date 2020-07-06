@@ -1,0 +1,11 @@
+
+# Playbook invocation example: ansible-playbook playbook__k8s_the_hard_way.yml -v --extra-vars "host=nocix"
+
+- name: Configure kubernetes
+  hosts: "{{ host }}"
+  remote_user: "{{ remote_default_user }}" # Defined in hosts vars
+  roles:
+    - k8s_the_hard_way
+  vars_files:
+    - secrets/secret_vars.yml
+  vars:

@@ -50,7 +50,6 @@
       - vim
       - wget
     state: present
-    update_cache: true
   become: true
 
 - name: Install dev libraries
