@@ -7,3 +7,6 @@
 - name: Install dependencies (Debian)
   import_tasks: "{{ playbook_dir }}/roles/k8s_the_hard_way/tasks/packages/debian.yml"
   when: ansible_facts['os_family'] == "Debian"
+
+- name: Disable swap
+  import_tasks: swapoff.yml
