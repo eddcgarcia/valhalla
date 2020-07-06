@@ -34,3 +34,6 @@ ansible/secrets/secret_vars.yml
 # But include the encrypted files
 !*/secrets/*.gpg
 !*/secret/*.gpg
+
+# Linux benchmark results files
+basic-tests.sh-run*.txt
