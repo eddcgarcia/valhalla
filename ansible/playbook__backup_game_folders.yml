@@ -12,12 +12,12 @@
     - secrets/secret_vars.yml
   vars:
     rsnapshot_config_include:
-      - "/home/customer/ark/ShooterGame/Saved/SavedArks/CrystalIsles.ark"
-      - "/home/customer/ark/ShooterGame/Saved/SavedArks/*.arkprofile"
-      - "/home/customer/ark/ShooterGame/Saved/SavedArks/*.arktribe"
+      - "/home/{{ steam_user }}/ark/ShooterGame/Saved/SavedArks/CrystalIsles.ark"
+      - "/home/{{ steam_user }}/ark/ShooterGame/Saved/SavedArks/*.arkprofile"
+      - "/home/{{ steam_user }}/ark/ShooterGame/Saved/SavedArks/*.arktribe"
     rsnapshot_config_exclude:
-      - "/home/customer/ark/ShooterGame/Saved/SavedArks/*"
+      - "/home/{{ steam_user }}/ark/ShooterGame/Saved/SavedArks/*"
     rsnapshot_config_backup:
       - name: ark rsnapshot backup
         backup_folders:
-          - [ backup, /home/customer/ark/ShooterGame/Saved/SavedArks/, saved-arks/ ]
+          - [ backup, "/home/{{ steam_user }}/ark/ShooterGame/Saved/SavedArks/", saved-arks/ ]
