@@ -2,4 +2,4 @@
 gpg_key_dir: "{{ ansible_env.HOME }}/.gpg"
 blackbox_dir: "/tmp/blackbox"
 debian_nodesource_repo_version: "node_12.x"
-linux_distro: "bionic"
+linux_distro: "{{ ansible_distribution_release }}"

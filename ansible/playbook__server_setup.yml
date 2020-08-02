@@ -5,8 +5,8 @@
   hosts: "{{ host }}"
   remote_user: "{{ remote_default_user }}" # Defined in hosts vars
   roles:
-    - benchmark
     - bootstrap
+    - benchmark
   vars_files:
     - secrets/secret_vars.yml
   vars:

@@ -23,6 +23,14 @@
     cache_valid_time: 3600
   become: true
 
+- name: Install python2 (pre-req)
+  apt:
+    name:
+      - python2
+    state: present
+    update_cache: true
+  become: true
+
 - name: Install basic packages
   apt:
     name:

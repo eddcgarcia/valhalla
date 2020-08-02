@@ -16,7 +16,8 @@ all:
         steam_user: "steam"
     local:
       hosts:
-        127.0.0.1 ansible_connection=local
+        localhost
       vars:
+        ansible_connection: local
         remote_default_user: "{{ lookup('env','USER') }}"
         steam_user: "steam"
