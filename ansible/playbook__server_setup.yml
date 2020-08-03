@@ -7,6 +7,8 @@
   roles:
     - bootstrap
     - benchmark
+    - docker
   vars_files:
     - secrets/secret_vars.yml
   vars:
+    docker_user: "{{ remote_default_user }}"

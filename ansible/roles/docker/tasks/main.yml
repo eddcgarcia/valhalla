@@ -1,0 +1,24 @@
+- name: Install docker
+  import_tasks: "packages/ubuntu.yml"
+  when: ansible_distribution == "Ubuntu"
+  become: true
+
+- name: Fail if none of the above tasks run
+  fail:
+    msg: This machine's OS did not match Ubuntu. Create a task for your operating system before proceeding.
+  when: ansible_distribution != "Ubuntu"
+
+- name: Enable and start docker
+  systemd:
+    name: docker.service # not required. Name of the service. When using in a chroot environment you always need to specify the full name i.e. (crond.service).
+    enabled: yes # not required. Whether the service should start on boot. B(At least one of state and enabled are required.)
+    state: started # not required. choices: reloaded;restarted;started;stopped. C(started)/C(stopped) are idempotent actions that will not run commands unless necessary. C(restarted) will always bounce the service. C(reloaded) will always reload.
+    masked: no # not required. Whether the unit should be masked or not, a masked unit is impossible to start.
+
+- name: Add user to docker group
+  user:
+    name: "{{ docker_user }}" # required. Name of the user to create, remove or modify.
+    groups: docker # not required. List of groups user will be added to. When set to an empty string C(''), C(null), or C(~), the user is removed from all groups except the primary group. (C(~) means C(null) in YAML),Before version 2.3, the only input format allowed was a comma separated string. Now this parameter accepts a list as well as a comma separated string.
+    append: yes # not required. If C(yes), add the user to the groups specified in C(groups).,If C(no), user will only be added to the groups specified in C(groups), removing them from all other groups.
+  when: docker_user is defined
+  become: true
